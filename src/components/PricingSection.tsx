@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Puzzle, RefreshCw, Lightbulb } from "lucide-react";
+import { openWhatsApp, whatsappMessages } from "@/lib/whatsapp";
 
 const PricingSection = () => {
   const included = [
@@ -51,6 +52,7 @@ const PricingSection = () => {
             <Button 
               size="lg" 
               className="bg-white text-petrol hover:bg-gray-100 px-8 py-4 text-lg rounded-lg transition-all duration-300 hover:scale-105 shadow-lg"
+              onClick={() => openWhatsApp(whatsappMessages.buy)}
             >
               Comprar agora
             </Button>
@@ -58,6 +60,7 @@ const PricingSection = () => {
               
               size="lg"
               className="border-white text-white hover:bg-white hover:text-petrol px-8 py-4 text-lg rounded-lg transition-all duration-300"
+              onClick={() => openWhatsApp(whatsappMessages.consult)}
             >
               Falar com um especialista
             </Button>
@@ -65,10 +68,8 @@ const PricingSection = () => {
         </div>
 
         <div className="text-center text-gray-600">
-          <p className="text-lg flex items-center justify-center gap-2">
-            <Lightbulb className="w-5 h-5" />
-            <span><strong>Garantia de 7 dias</strong> - Se não ficar satisfeito, devolvemos seu dinheiro</span>
-          </p>
+         
+         
         </div>
       </div>
     </section>

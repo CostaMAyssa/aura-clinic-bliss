@@ -1,5 +1,5 @@
-
 import { Mail, Phone, Clock, Book, Settings, MessageCircle } from "lucide-react";
+import { openWhatsApp, whatsappMessages } from "@/lib/whatsapp";
 
 const Footer = () => {
   return (
@@ -21,9 +21,12 @@ const Footer = () => {
                 <Mail className="w-4 h-4" />
                 <span>contato@aurasystem.com.br</span>
               </div>
-              <div className="flex items-center space-x-2">
+              <div 
+                className="flex items-center space-x-2 cursor-pointer hover:text-white transition-colors"
+                onClick={() => openWhatsApp(whatsappMessages.interest)}
+              >
                 <Phone className="w-4 h-4" />
-                <span>(11) 99999-9999</span>
+                <span>(64) 98114-0676</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Clock className="w-4 h-4" />
@@ -43,7 +46,10 @@ const Footer = () => {
                 <Settings className="w-4 h-4" />
                 <span>Instalação</span>
               </div>
-              <div className="flex items-center space-x-2">
+              <div 
+                className="flex items-center space-x-2 cursor-pointer hover:text-white transition-colors"
+                onClick={() => openWhatsApp(whatsappMessages.support)}
+              >
                 <MessageCircle className="w-4 h-4" />
                 <span>Chat direto</span>
               </div>

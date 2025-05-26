@@ -1,5 +1,5 @@
-
 import { Button } from "@/components/ui/button";
+import { openWhatsApp, whatsappMessages } from "@/lib/whatsapp";
 
 const HeroSection = () => {
   return (
@@ -22,6 +22,7 @@ const HeroSection = () => {
           <Button 
             size="lg" 
             className="bg-petrol hover:bg-petrol/90 text-white px-8 py-4 text-lg rounded-lg transition-all duration-300 hover:scale-105 shadow-lg"
+            onClick={() => openWhatsApp(whatsappMessages.interest)}
           >
             Quero o AURA na minha clínica
           </Button>
