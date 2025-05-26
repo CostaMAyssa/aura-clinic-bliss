@@ -1,5 +1,5 @@
-
 import { Button } from "@/components/ui/button";
+import { Puzzle, RefreshCw, Lightbulb } from "lucide-react";
 
 const PricingSection = () => {
   const included = [
@@ -24,7 +24,10 @@ const PricingSection = () => {
         </div>
 
         <div className="bg-gradient-to-br from-petrol to-sage rounded-3xl p-12 text-white text-center mb-12">
-          <h3 className="text-3xl font-bold mb-8">🧩 O que você recebe:</h3>
+          <div className="flex items-center justify-center gap-3 mb-8">
+            <Puzzle className="w-8 h-8" />
+            <h3 className="text-3xl font-bold">O que você recebe:</h3>
+          </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
             {included.map((item, index) => (
@@ -38,7 +41,10 @@ const PricingSection = () => {
           <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-8 mb-8">
             <div className="text-6xl font-bold mb-4">R$ 1.700</div>
             <div className="text-xl mb-4">Investimento único</div>
-            <div className="text-lg">🔁 Sem mensalidade. Sem limitações. 100% seu.</div>
+            <div className="text-lg flex items-center justify-center gap-2">
+              <RefreshCw className="w-5 h-5" />
+              <span>Sem mensalidade. Sem limitações. 100% seu.</span>
+            </div>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -49,7 +55,7 @@ const PricingSection = () => {
               Comprar agora
             </Button>
             <Button 
-              variant="outline" 
+              
               size="lg"
               className="border-white text-white hover:bg-white hover:text-petrol px-8 py-4 text-lg rounded-lg transition-all duration-300"
             >
@@ -59,7 +65,10 @@ const PricingSection = () => {
         </div>
 
         <div className="text-center text-gray-600">
-          <p className="text-lg">💡 <strong>Garantia de 7 dias</strong> - Se não ficar satisfeito, devolvemos seu dinheiro</p>
+          <p className="text-lg flex items-center justify-center gap-2">
+            <Lightbulb className="w-5 h-5" />
+            <span><strong>Garantia de 7 dias</strong> - Se não ficar satisfeito, devolvemos seu dinheiro</span>
+          </p>
         </div>
       </div>
     </section>
