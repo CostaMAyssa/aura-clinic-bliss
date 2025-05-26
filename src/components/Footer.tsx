@@ -1,4 +1,6 @@
 
+import { Mail, Phone, Clock, Book, Settings, MessageCircle } from "lucide-react";
+
 const Footer = () => {
   return (
     <footer className="bg-dark-gray text-white py-12">
@@ -15,18 +17,36 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Contato</h4>
             <div className="space-y-2 text-gray-300">
-              <p>📧 contato@aurasystem.com.br</p>
-              <p>📱 (11) 99999-9999</p>
-              <p>🕒 Seg-Sex: 9h às 18h</p>
+              <div className="flex items-center space-x-2">
+                <Mail className="w-4 h-4" />
+                <span>contato@aurasystem.com.br</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Phone className="w-4 h-4" />
+                <span>(11) 99999-9999</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Clock className="w-4 h-4" />
+                <span>Seg-Sex: 9h às 18h</span>
+              </div>
             </div>
           </div>
           
           <div>
             <h4 className="text-lg font-semibold mb-4">Suporte</h4>
             <div className="space-y-2 text-gray-300">
-              <p>📖 Documentação</p>
-              <p>🛠️ Instalação</p>
-              <p>💬 Chat direto</p>
+              <div className="flex items-center space-x-2">
+                <Book className="w-4 h-4" />
+                <span>Documentação</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Settings className="w-4 h-4" />
+                <span>Instalação</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <MessageCircle className="w-4 h-4" />
+                <span>Chat direto</span>
+              </div>
             </div>
           </div>
         </div>
