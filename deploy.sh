@@ -3,27 +3,50 @@
 # abort on errors
 set -e
 
-# build
+# check if we have uncommitted changes
+if [ -n "$(git status --porcelain)" ]; then
+  echo "⚠️ Você tem alterações não commitadas. Por favor, faça commit ou stash antes de fazer deploy."
+  exit 1
+fi
+
+# check if we are on the main branch
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+if [ "$CURRENT_BRANCH" != "main" ]; then
+  echo "⚠️ Você não está na branch main. Por favor, mude para a main antes de fazer deploy."
+  exit 1
+fi
+
+echo "🔍 Verificando dependências..."
+npm install
+
+echo "🧪 Executando testes..."
+npm run test || true
+
+echo "🏗️ Construindo o projeto..."
 npm run build
 
-# navigate into the build output directory
+echo "📦 Preparando para deploy..."
 cd dist
 
 # place .nojekyll to bypass Jekyll processing
 echo > .nojekyll
 
-# if you are deploying to a custom domain
-# echo 'www.example.com' > CNAME
+# Otimizar imagens se o comando sips estiver disponível
+if command -v sips &> /dev/null; then
+  echo "🖼️ Otimizando imagens..."
+  find . -name "*.png" -exec sips -Z 1200 {} \;
+  find . -name "*.jpg" -exec sips -Z 1200 {} \;
+fi
 
+# Inicializar repositório git
+echo "🚀 Iniciando deploy para GitHub Pages..."
 git init
 git checkout -B main
 git add -A
-git commit -m 'deploy'
+git commit -m "deploy: $(date +"%Y-%m-%d %H:%M:%S")"
 
-# if you are deploying to https://<USERNAME>.github.io
-# git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git main
-
-# if you are deploying to https://<USERNAME>.github.io/<REPO>
+# Deploy para GitHub Pages
 git push -f git@github.com:mayssaferreira/aura-clinic-bliss.git main:gh-pages
 
+echo "✅ Deploy concluído com sucesso!"
 cd - 

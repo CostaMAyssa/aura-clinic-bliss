@@ -1,26 +1,58 @@
-
 import { 
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  CarouselApi
 } from "@/components/ui/carousel";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 const SystemDemo = () => {
-  const [api, setApi] = useState<any>();
+  const [api, setApi] = useState<CarouselApi>();
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Auto-rotation functionality
+  // Auto-rotation functionality with pause on hover/focus
   useEffect(() => {
     if (!api) return;
 
-    const interval = setInterval(() => {
+    let intervalId = setInterval(() => {
       api.scrollNext();
-    }, 4000); // Change slide every 4 seconds
+    }, 4000);
 
-    return () => clearInterval(interval);
+    const container = document.querySelector('[data-carousel-container]');
+    
+    const pauseAutoRotation = () => clearInterval(intervalId);
+    const resumeAutoRotation = () => {
+      clearInterval(intervalId);
+      intervalId = setInterval(() => api.scrollNext(), 4000);
+    };
+
+    container?.addEventListener('mouseenter', pauseAutoRotation);
+    container?.addEventListener('mouseleave', resumeAutoRotation);
+    container?.addEventListener('focusin', pauseAutoRotation);
+    container?.addEventListener('focusout', resumeAutoRotation);
+
+    return () => {
+      clearInterval(intervalId);
+      container?.removeEventListener('mouseenter', pauseAutoRotation);
+      container?.removeEventListener('mouseleave', resumeAutoRotation);
+      container?.removeEventListener('focusin', pauseAutoRotation);
+      container?.removeEventListener('focusout', resumeAutoRotation);
+    };
   }, [api]);
+
+  // Handle slide change
+  const handleSlideChange = useCallback(() => {
+    if (!api) return;
+    setCurrentSlide(api.selectedScrollSnap());
+  }, [api]);
+
+  useEffect(() => {
+    if (!api) return;
+    api.on('select', handleSlideChange);
+    return () => api.off('select', handleSlideChange);
+  }, [api, handleSlideChange]);
 
   const systemImages = [
     {
@@ -79,7 +111,7 @@ const SystemDemo = () => {
           </p>
         </div>
 
-        <div className="relative">
+        <div className="relative" data-carousel-container>
           <Carousel 
             setApi={setApi}
             className="w-full max-w-5xl mx-auto"
@@ -87,13 +119,19 @@ const SystemDemo = () => {
               align: "start",
               loop: true,
             }}
+            aria-label="Demonstração do sistema AURA"
           >
             <CarouselContent>
               {systemImages.map((image, index) => (
                 <CarouselItem key={index}>
-                  <div className="bg-white rounded-2xl shadow-2xl p-4 border border-gray-100">
+                  <div 
+                    className="bg-white rounded-2xl shadow-2xl p-4 border border-gray-100"
+                    role="group"
+                    aria-roledescription="slide"
+                    aria-label={`${index + 1} de ${systemImages.length}`}
+                  >
                     <div className="flex items-center mb-4">
-                      <div className="flex space-x-2">
+                      <div className="flex space-x-2" aria-hidden="true">
                         <div className="w-3 h-3 bg-red-500 rounded-full"></div>
                         <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
                         <div className="w-3 h-3 bg-green-500 rounded-full"></div>
@@ -107,6 +145,9 @@ const SystemDemo = () => {
                         alt={image.alt}
                         className="w-full h-auto object-contain"
                         loading="lazy"
+                        width={800}
+                        height={600}
+                        fetchPriority={index === 0 ? "high" : "low"}
                       />
                     </div>
                     
@@ -123,17 +164,32 @@ const SystemDemo = () => {
               ))}
             </CarouselContent>
             
-            <CarouselPrevious className="left-4" />
-            <CarouselNext className="right-4" />
+            <CarouselPrevious 
+              className="left-4" 
+              aria-label="Slide anterior"
+            />
+            <CarouselNext 
+              className="right-4"
+              aria-label="Próximo slide"
+            />
           </Carousel>
           
-          <div className="flex justify-center mt-8 space-x-2">
+          <div 
+            className="flex justify-center mt-8 space-x-2"
+            role="tablist"
+            aria-label="Navegação dos slides"
+          >
             {systemImages.map((_, index) => (
               <button
                 key={index}
                 onClick={() => api?.scrollTo(index)}
-                className="w-3 h-3 rounded-full bg-gray-300 hover:bg-petrol transition-colors duration-200"
+                className={`w-3 h-3 rounded-full transition-colors duration-200 ${
+                  currentSlide === index ? 'bg-petrol' : 'bg-gray-300 hover:bg-petrol/60'
+                }`}
                 aria-label={`Ir para slide ${index + 1}`}
+                aria-selected={currentSlide === index}
+                role="tab"
+                tabIndex={currentSlide === index ? 0 : -1}
               />
             ))}
           </div>
