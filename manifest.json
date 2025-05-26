@@ -2,23 +2,23 @@
   "name": "AURA - Sistema Inteligente de Agendamento para Clínicas",
   "short_name": "AURA",
   "description": "Automatize agendamentos, reduza faltas e encante seus pacientes com o AURA - sistema completo com IA integrada",
-  "start_url": "/",
+  "start_url": "/aura-clinic-bliss/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#2D5A5A",
   "icons": [
     {
-      "src": "/favicon-16x16.png",
+      "src": "/aura-clinic-bliss/favicon-16x16.png",
       "sizes": "16x16",
       "type": "image/png"
     },
     {
-      "src": "/favicon-32x32.png",
+      "src": "/aura-clinic-bliss/favicon-32x32.png",
       "sizes": "32x32",
       "type": "image/png"
     },
     {
-      "src": "/favicon.png",
+      "src": "/aura-clinic-bliss/favicon.png",
       "sizes": "512x512",
       "type": "image/png"
     }
