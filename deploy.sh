@@ -16,13 +16,6 @@ if [ "$CURRENT_BRANCH" != "main" ]; then
   exit 1
 fi
 
-# check if GITHUB_TOKEN is set
-if [ -z "$GITHUB_TOKEN" ]; then
-  echo "⚠️ GITHUB_TOKEN não está definido. Por favor, defina a variável de ambiente:"
-  echo "export GITHUB_TOKEN=seu_token_aqui"
-  exit 1
-fi
-
 echo "🔍 Verificando dependências..."
 npm install
 
@@ -52,8 +45,13 @@ git checkout -B main
 git add -A
 git commit -m "deploy: $(date +"%Y-%m-%d %H:%M:%S")"
 
-# Deploy para GitHub Pages usando token
-git push -f "https://$GITHUB_TOKEN@github.com/CostaMAyssa/aura-clinic-bliss.git" main:gh-pages
+# Get the remote URL from the parent directory
+cd ..
+REMOTE_URL=$(git remote get-url origin)
+cd dist
+
+# Deploy para GitHub Pages usando a URL remota existente
+git push -f "$REMOTE_URL" main:gh-pages
 
 echo "✅ Deploy concluído com sucesso!"
 cd - 
