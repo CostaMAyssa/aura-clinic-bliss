@@ -1,5 +1,72 @@
 
+import { 
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { useEffect, useState } from "react";
+
 const SystemDemo = () => {
+  const [api, setApi] = useState<any>();
+
+  // Auto-rotation functionality
+  useEffect(() => {
+    if (!api) return;
+
+    const interval = setInterval(() => {
+      api.scrollNext();
+    }, 4000); // Change slide every 4 seconds
+
+    return () => clearInterval(interval);
+  }, [api]);
+
+  const systemImages = [
+    {
+      src: "/lovable-uploads/11f3468b-9773-4838-8d2a-ba56670ecaee.png",
+      alt: "Dashboard AURA - Visão geral com métricas de agendamentos e gráficos",
+      title: "Dashboard Inteligente",
+      description: "Visão completa da operação com gráficos de atendimento, agendamentos e produtividade"
+    },
+    {
+      src: "/lovable-uploads/4a326c24-5ab9-4427-b241-262eca1bbe67.png",
+      alt: "Agendamentos AURA - Lista e gestão de consultas",
+      title: "Gestão de Agendamentos",
+      description: "Lista e calendário integrados com agendamento manual rápido + IA"
+    },
+    {
+      src: "/lovable-uploads/0f56e8b4-e1a2-41f3-8a93-3d9f2d636e74.png",
+      alt: "Calendário AURA - Visualização mensal de agendamentos",
+      title: "Visualização Calendário",
+      description: "Interface intuitiva para gerenciar consultas por dia, semana ou mês"
+    },
+    {
+      src: "/lovable-uploads/34efb379-633d-4033-a03a-95dfdd21e9e8.png",
+      alt: "IA AURA - Configuração do assistente inteligente",
+      title: "IA Integrada via OpenAI",
+      description: "Assistente treinado para agendar, confirmar e responder com parametrização completa"
+    },
+    {
+      src: "/lovable-uploads/ecee1077-f74e-441d-a28e-0885f0b33885.png",
+      alt: "Pacientes AURA - CRM médico completo",
+      title: "CRM Médico",
+      description: "Cadastro e histórico de pacientes, retornos e novos pacientes com ações rápidas"
+    },
+    {
+      src: "/lovable-uploads/d3aa1278-5d96-4713-aeb7-65d6b482f2d7.png",
+      alt: "Financeiro AURA - Controle de recebimentos",
+      title: "Controle Financeiro",
+      description: "Total recebido e pendente, média por consulta, marcar pagamento com 1 clique"
+    },
+    {
+      src: "/lovable-uploads/f058e976-c60d-4c40-99df-65dd9575834b.png",
+      alt: "Relatórios AURA - Análises e estatísticas",
+      title: "Relatórios Avançados",
+      description: "Exportação em PDF e Excel, gráficos por período e taxa de ocupação"
+    }
+  ];
+
   return (
     <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-6xl mx-auto px-4">
@@ -8,75 +75,67 @@ const SystemDemo = () => {
             Demonstração do <span className="text-petrol">Sistema</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12">
-            Design sofisticado, intuitivo e pronto para uso em qualquer dispositivo
+            Interface real do AURA em funcionamento - Design sofisticado, intuitivo e pronto para uso
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="order-2 lg:order-1">
-            <div className="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100">
-              <div className="flex items-center mb-6">
-                <div className="flex space-x-2">
-                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                </div>
-                <div className="ml-4 text-sm text-gray-500">AURA Dashboard</div>
-              </div>
-              
-              <div className="space-y-4">
-                <div className="h-4 bg-petrol rounded w-1/3"></div>
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="h-16 bg-sage/20 rounded-lg flex items-center justify-center">
-                    <div className="text-2xl font-bold text-petrol">24</div>
+        <div className="relative">
+          <Carousel 
+            setApi={setApi}
+            className="w-full max-w-5xl mx-auto"
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+          >
+            <CarouselContent>
+              {systemImages.map((image, index) => (
+                <CarouselItem key={index}>
+                  <div className="bg-white rounded-2xl shadow-2xl p-4 border border-gray-100">
+                    <div className="flex items-center mb-4">
+                      <div className="flex space-x-2">
+                        <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                        <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                        <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                      </div>
+                      <div className="ml-4 text-sm text-gray-500">AURA Dashboard</div>
+                    </div>
+                    
+                    <div className="relative overflow-hidden rounded-lg">
+                      <img
+                        src={image.src}
+                        alt={image.alt}
+                        className="w-full h-auto object-contain"
+                        loading="lazy"
+                      />
+                    </div>
+                    
+                    <div className="mt-6 text-center">
+                      <h3 className="text-xl font-semibold text-dark-gray mb-2">
+                        {image.title}
+                      </h3>
+                      <p className="text-gray-600">
+                        {image.description}
+                      </p>
+                    </div>
                   </div>
-                  <div className="h-16 bg-sage/20 rounded-lg flex items-center justify-center">
-                    <div className="text-2xl font-bold text-petrol">12</div>
-                  </div>
-                  <div className="h-16 bg-sage/20 rounded-lg flex items-center justify-center">
-                    <div className="text-2xl font-bold text-petrol">98%</div>
-                  </div>
-                </div>
-                <div className="h-32 bg-gradient-to-r from-petrol/10 to-sage/10 rounded-lg"></div>
-                <div className="space-y-2">
-                  <div className="h-3 bg-gray-200 rounded w-full"></div>
-                  <div className="h-3 bg-gray-200 rounded w-5/6"></div>
-                  <div className="h-3 bg-gray-200 rounded w-4/6"></div>
-                </div>
-              </div>
-            </div>
-          </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            
+            <CarouselPrevious className="left-4" />
+            <CarouselNext className="right-4" />
+          </Carousel>
           
-          <div className="order-1 lg:order-2 space-y-8">
-            <div className="flex items-start space-x-4">
-              <div className="w-12 h-12 bg-petrol rounded-lg flex items-center justify-center text-white font-bold">
-                1
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-dark-gray mb-2">Dashboard Inteligente</h3>
-                <p className="text-gray-600">Visão completa da operação com gráficos de atendimento, agendamentos e produtividade</p>
-              </div>
-            </div>
-            
-            <div className="flex items-start space-x-4">
-              <div className="w-12 h-12 bg-sage rounded-lg flex items-center justify-center text-white font-bold">
-                2
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-dark-gray mb-2">Gestão Simplificada</h3>
-                <p className="text-gray-600">Lista e calendário integrados com agendamento manual rápido + IA</p>
-              </div>
-            </div>
-            
-            <div className="flex items-start space-x-4">
-              <div className="w-12 h-12 bg-petrol rounded-lg flex items-center justify-center text-white font-bold">
-                3
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-dark-gray mb-2">Relatórios Avançados</h3>
-                <p className="text-gray-600">Exportação em PDF e Excel com análises por período e taxa de ocupação</p>
-              </div>
-            </div>
+          <div className="flex justify-center mt-8 space-x-2">
+            {systemImages.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => api?.scrollTo(index)}
+                className="w-3 h-3 rounded-full bg-gray-300 hover:bg-petrol transition-colors duration-200"
+                aria-label={`Ir para slide ${index + 1}`}
+              />
+            ))}
           </div>
         </div>
       </div>
