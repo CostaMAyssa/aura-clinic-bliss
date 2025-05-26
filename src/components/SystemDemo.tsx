@@ -8,6 +8,15 @@ import {
 } from "@/components/ui/carousel";
 import { useEffect, useState, useCallback } from "react";
 
+// Import das imagens
+import dashboardImg from "@/assets/images/11f3468b-9773-4838-8d2a-ba56670ecaee.png";
+import agendamentosImg from "@/assets/images/4a326c24-5ab9-4427-b241-262eca1bbe67.png";
+import calendarioImg from "@/assets/images/0f56e8b4-e1a2-41f3-8a93-3d9f2d636e74.png";
+import iaImg from "@/assets/images/34efb379-633d-4033-a03a-95dfdd21e9e8.png";
+import pacientesImg from "@/assets/images/ecee1077-f74e-441d-a28e-0885f0b33885.png";
+import financeiroImg from "@/assets/images/d3aa1278-5d96-4713-aeb7-65d6b482f2d7.png";
+import relatoriosImg from "@/assets/images/f058e976-c60d-4c40-99df-65dd9575834b.png";
+
 const SystemDemo = () => {
   const [api, setApi] = useState<CarouselApi>();
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -56,43 +65,43 @@ const SystemDemo = () => {
 
   const systemImages = [
     {
-      src: "./lovable-uploads/11f3468b-9773-4838-8d2a-ba56670ecaee.png",
+      src: dashboardImg,
       alt: "Dashboard AURA - Visão geral com métricas de agendamentos e gráficos",
       title: "Dashboard Inteligente",
       description: "Visão completa da operação com gráficos de atendimento, agendamentos e produtividade"
     },
     {
-      src: "./lovable-uploads/4a326c24-5ab9-4427-b241-262eca1bbe67.png",
+      src: agendamentosImg,
       alt: "Agendamentos AURA - Lista e gestão de consultas",
       title: "Gestão de Agendamentos",
       description: "Lista e calendário integrados com agendamento manual rápido + IA"
     },
     {
-      src: "./lovable-uploads/0f56e8b4-e1a2-41f3-8a93-3d9f2d636e74.png",
+      src: calendarioImg,
       alt: "Calendário AURA - Visualização mensal de agendamentos",
       title: "Visualização Calendário",
       description: "Interface intuitiva para gerenciar consultas por dia, semana ou mês"
     },
     {
-      src: "./lovable-uploads/34efb379-633d-4033-a03a-95dfdd21e9e8.png",
+      src: iaImg,
       alt: "IA AURA - Configuração do assistente inteligente",
       title: "IA Integrada via OpenAI",
       description: "Assistente treinado para agendar, confirmar e responder com parametrização completa"
     },
     {
-      src: "./lovable-uploads/ecee1077-f74e-441d-a28e-0885f0b33885.png",
+      src: pacientesImg,
       alt: "Pacientes AURA - CRM médico completo",
       title: "CRM Médico",
       description: "Cadastro e histórico de pacientes, retornos e novos pacientes com ações rápidas"
     },
     {
-      src: "./lovable-uploads/d3aa1278-5d96-4713-aeb7-65d6b482f2d7.png",
+      src: financeiroImg,
       alt: "Financeiro AURA - Controle de recebimentos",
       title: "Controle Financeiro",
       description: "Total recebido e pendente, média por consulta, marcar pagamento com 1 clique"
     },
     {
-      src: "./lovable-uploads/f058e976-c60d-4c40-99df-65dd9575834b.png",
+      src: relatoriosImg,
       alt: "Relatórios AURA - Análises e estatísticas",
       title: "Relatórios Avançados",
       description: "Exportação em PDF e Excel, gráficos por período e taxa de ocupação"
