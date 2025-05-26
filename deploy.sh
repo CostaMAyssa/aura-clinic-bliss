@@ -31,6 +31,10 @@ cd dist
 # place .nojekyll to bypass Jekyll processing
 echo > .nojekyll
 
+# Create 404.html for SPA routing (copy index.html)
+echo "🔄 Criando 404.html para roteamento SPA..."
+cp index.html 404.html
+
 # Otimizar imagens se o comando sips estiver disponível
 if command -v sips &> /dev/null; then
   echo "🖼️ Otimizando imagens..."
