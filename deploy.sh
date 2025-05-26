@@ -45,8 +45,8 @@ git checkout -B main
 git add -A
 git commit -m "deploy: $(date +"%Y-%m-%d %H:%M:%S")"
 
-# Deploy para GitHub Pages
-git push -f git@github.com:mayssaferreira/aura-clinic-bliss.git main:gh-pages
+# Deploy para GitHub Pages usando HTTPS
+git push -f https://github.com/CostaMAyssa/aura-clinic-bliss.git main:gh-pages
 
 echo "✅ Deploy concluído com sucesso!"
 cd - 
